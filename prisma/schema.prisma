@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  email    String @unique
+  password String
+  balance  Float? @default(0)
+
+  @@map("users")
+}
+
+model Renter {
+  id         String     @id @default(uuid())
+  name       String
+  email      String     @unique
+  password   String
+  balance    Float?     @default(0)
+  properties Property[]
+
+  @@map("renters")
+}
+
+model Property {
+  id String @id @default(uuid())
+
+  renter   Renter? @relation(fields: [renterId], references: [id])
+  renterId String?
+
+  houses    House[]
+  buildings Building[]
+
+  @@map("properties")
+}
+
+model House {
+  id                String    @id @default(uuid())
+  address           Address   @relation(fields: [addressId], references: [id])
+  numberOfRooms     Int?
+  numberOfBathrooms Int?
+  extras            String? // Extras such as swimming pool, recreation area, etc.
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime? @updatedAt @map("updated_at")
+  property          Property? @relation(fields: [propertyId], references: [id])
+  propertyId        String?   @map("property_id")
+  addressId         String
+
+  @@map("houses")
+}
+
+model Building {
+  id                 String  @id @default(uuid())
+  name               String
+  address            Address @relation(fields: [addressId], references: [id])
+  numberOfFloors     Int?
+  numberOfApartments Int?
+  extras             String?
+
+  apartments Apartment[]
+  property   Property?   @relation(fields: [propertyId], references: [id])
+  propertyId String?
+  addressId  String
+
+  @@map("buildings")
+}
+
+model Apartment {
+  id                String  @id @default(uuid())
+  numberOfRooms     Int?
+  numberOfBathrooms Int?
+  extras            String?
+
+  building   Building? @relation(fields: [buildingId], references: [id])
+  buildingId String?
+
+  @@map("apartments")
+}
+
+model Address {
+  id        String     @id @default(uuid())
+  country   String
+  city      String
+  street    String
+  zipCode   String
+  buildings Building[]
+  houses    House[]
+
+  @@map("addresses")
+}
