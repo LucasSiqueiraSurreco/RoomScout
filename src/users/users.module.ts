@@ -5,9 +5,11 @@ import { AuthenticateUserController } from './controllers/authenticate-user.cont
 import { AuthModule } from '@/auth/auth.module'
 import { BalanceController } from './controllers/balance.controller'
 import { GetAccountsController } from './controllers/get-accounts.controller'
+import { CreateAccountsService } from './controllers/create-accounts.service'
 
 @Module({
-  providers: [PrismaService, AuthModule],
+  imports: [AuthModule],
+  providers: [PrismaService, CreateAccountsService],
   controllers: [
     CreateUsersAccountController,
     AuthenticateUserController,
