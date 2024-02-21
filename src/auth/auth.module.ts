@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
+import { JwtStrategy } from './jwt.strategy'
 
 @Module({
   imports: [
@@ -15,13 +16,13 @@ import { PassportModule } from '@nestjs/passport'
         const publicKey = config.get('JWT_PUBLIC_KEY', { infer: true })
 
         return {
-          // signOptions: { algorithm: 'RS256' },
-          // NOT RS256 privateKey: Buffer.from(privateKey, 'base64')
-          privateKey,
-          publicKey,
+          signOptions: { algorithm: 'RS256' },
+          privateKey: Buffer.from(privateKey, 'base64'),
+          publicKey: Buffer.from(publicKey, 'base64'),
         }
       },
     }),
   ],
+  providers: [JwtStrategy],
 })
 export class AuthModule {}

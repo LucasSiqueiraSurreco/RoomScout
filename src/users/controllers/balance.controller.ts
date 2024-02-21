@@ -1,11 +1,13 @@
-import { PrismaService } from '@/lib/prisma.service'
-import { Controller, UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '@/auth/jwt-auth.guard'
+import { Controller, Post, UseGuards } from '@nestjs/common'
 
 @Controller('/balance')
+@UseGuards(JwtAuthGuard)
 export class BalanceController {
-  constructor(private: PrismaService) {
+  constructor() {}
 
-    @Post()
-    @UseGuards()
+  @Post(':id')
+  async addBalance() {
+    return 'addedd'
   }
 }
