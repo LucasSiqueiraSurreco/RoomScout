@@ -1,0 +1,23 @@
+@baseUrl= http://localhost:3333
+
+# @name create_renter_account
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "name": "John Renter",
+    "email":"johnrenter@mail.com",
+    "password":"123456",
+    "role":"renter"
+}
+
+###
+
+# @name authenticate_renter
+POST {{baseUrl}}/sessions
+Content-Type: application/json
+
+{
+    "email":"johnrenter@mail.com",
+    "password":"123456"
+}

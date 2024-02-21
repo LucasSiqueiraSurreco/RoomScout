@@ -5,19 +5,9 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "balance" DOUBLE PRECISION DEFAULT 0,
+    "role" TEXT NOT NULL DEFAULT 'user',
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "renters" (
-    "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
-    "balance" DOUBLE PRECISION DEFAULT 0,
-
-    CONSTRAINT "renters_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -80,11 +70,8 @@ CREATE TABLE "addresses" (
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "renters_email_key" ON "renters"("email");
-
 -- AddForeignKey
-ALTER TABLE "properties" ADD CONSTRAINT "properties_renterId_fkey" FOREIGN KEY ("renterId") REFERENCES "renters"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "properties" ADD CONSTRAINT "properties_renterId_fkey" FOREIGN KEY ("renterId") REFERENCES "users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "houses" ADD CONSTRAINT "houses_addressId_fkey" FOREIGN KEY ("addressId") REFERENCES "addresses"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

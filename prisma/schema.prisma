@@ -13,25 +13,17 @@ model User {
   email    String @unique
   password String
   balance  Float? @default(0)
+  role     String @default("user")
+
+  property Property[]
 
   @@map("users")
-}
-
-model Renter {
-  id         String     @id @default(uuid())
-  name       String
-  email      String     @unique
-  password   String
-  balance    Float?     @default(0)
-  properties Property[]
-
-  @@map("renters")
 }
 
 model Property {
   id String @id @default(uuid())
 
-  renter   Renter? @relation(fields: [renterId], references: [id])
+  renter   User?   @relation(fields: [renterId], references: [id])
   renterId String?
 
   houses    House[]
