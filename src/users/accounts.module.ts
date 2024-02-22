@@ -7,10 +7,11 @@ import { BalanceController } from './controllers/balance.controller'
 import { GetAccountsController } from './controllers/get-accounts.controller'
 import { CreateAccountsService } from './controllers/create-accounts.service'
 import { CheckAccountExistsMiddleware } from '@/middleware/check-id-exists'
+import { BalanceService } from './controllers/balance.service'
 
 @Module({
   imports: [AuthModule],
-  providers: [PrismaService, CreateAccountsService],
+  providers: [PrismaService, CreateAccountsService, BalanceService],
   controllers: [
     CreateUsersAccountController,
     AuthenticateUserController,

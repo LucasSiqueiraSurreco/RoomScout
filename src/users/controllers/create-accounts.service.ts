@@ -8,7 +8,7 @@ export const createAccountBodySchema = z.object({
   email: z.string().email(),
   password: z.string(),
   balance: z.number().positive().optional(),
-  role: z.enum(['user', 'renter']),
+  role: z.string(),
 })
 
 export type CreateAccountBodySchema = z.infer<typeof createAccountBodySchema>
@@ -32,7 +32,7 @@ export class CreateAccountsService {
 
     const hashedPassword = await hash(password, 8)
 
-    if (!['user', 'renter'].includes(role)) {
+    if (!['user', 'renter'].includes(role.toLowerCase())) {
       throw new ConflictException('Invalid user role')
     }
 
