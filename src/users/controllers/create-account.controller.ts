@@ -9,11 +9,11 @@ import {
 
 @Controller('/accounts')
 export class CreateUsersAccountController {
-  constructor(private userService: CreateAccountsService) {}
+  constructor(private accountService: CreateAccountsService) {}
 
   @Post()
   @UsePipes(new ZodValidationPipe(createAccountBodySchema))
   async createUser(@Body() body: CreateAccountBodySchema) {
-    return this.userService.createUser(body)
+    return this.accountService.createUser(body)
   }
 }
