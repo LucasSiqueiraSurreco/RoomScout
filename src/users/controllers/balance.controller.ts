@@ -17,7 +17,7 @@ export class BalanceController {
     return this.balanceService.addBalance(id, balance)
   }
 
-  @Post('withdraw/:id')
+  @Post('/withdraw/:id')
   async withdraw(@Param('id') id: string, @Body() body: BalanceBodySchema) {
     return this.balanceService.withdraw(id, body)
   }

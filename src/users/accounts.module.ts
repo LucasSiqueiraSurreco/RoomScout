@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common'
 import { CreateUsersAccountController } from './controllers/create-account.controller'
 import { PrismaService } from '@/lib/prisma.service'
-import { AuthenticateUserController } from './controllers/authenticate-user.controller'
+import { AuthenticateAccountController } from './controllers/authenticate-account.controller'
 import { AuthModule } from '@/auth/auth.module'
 import { BalanceController } from './controllers/balance.controller'
 import { GetAccountsController } from './controllers/get-accounts.controller'
@@ -14,7 +14,7 @@ import { BalanceService } from './controllers/balance.service'
   providers: [PrismaService, CreateAccountsService, BalanceService],
   controllers: [
     CreateUsersAccountController,
-    AuthenticateUserController,
+    AuthenticateAccountController,
     BalanceController,
     GetAccountsController,
   ],

@@ -30,7 +30,7 @@ export class BalanceService {
       throw new BadRequestException('Invalid role')
     }
 
-    const discountPercentage = user?.role === 'user' ? 0.02 : 0.05
+    const discountPercentage = user?.role === 'user' ? 0.02 : 0.05 // 2% & 5%
 
     const withdrawAmount = body.balance * (1 + discountPercentage)
 

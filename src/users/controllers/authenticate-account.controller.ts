@@ -11,23 +11,25 @@ import { JwtService } from '@nestjs/jwt'
 import { compare } from 'bcryptjs'
 import { z } from 'zod'
 
-const authenticateUserBodySchema = z.object({
+const authenticateAccountBodySchema = z.object({
   email: z.string().email(),
   password: z.string(),
 })
 
-type AuthenticateUserBodySchema = z.infer<typeof authenticateUserBodySchema>
+type AuthenticateAccountBodySchema = z.infer<
+  typeof authenticateAccountBodySchema
+>
 
 @Controller('/sessions')
-export class AuthenticateUserController {
+export class AuthenticateAccountController {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
   ) {}
 
   @Post()
-  @UsePipes(new ZodValidationPipe(authenticateUserBodySchema))
-  async authenticateRenter(@Body() body: AuthenticateUserBodySchema) {
+  @UsePipes(new ZodValidationPipe(authenticateAccountBodySchema))
+  async authenticateRenter(@Body() body: AuthenticateAccountBodySchema) {
     const { email, password } = body
 
     const user = await this.prisma.user.findUnique({
