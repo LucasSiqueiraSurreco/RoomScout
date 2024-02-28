@@ -3,8 +3,11 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common'
-import { UsersRepository } from './repositories/users.repository'
-import { CreateAccountBodySchema } from 'users.old/controllers/create-accounts.service'
+import {
+  CreateAccountBodySchema,
+  UsersRepository,
+} from './repositories/users.repository'
+
 import { compare, hash } from 'bcryptjs'
 
 @Injectable()
@@ -38,7 +41,7 @@ export class UsersService {
     return this.usersRepository.findAll()
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.usersRepository.findOne(id)
   }
 
